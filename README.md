@@ -14,33 +14,40 @@ This repository covers the following areas:
 
 - Full Stack Development
 - Programming Languages
-- HTML
-- CSS
-- JavaScript
-- TypeScript
-- Python
-- Java
+- HTML <img alt="HTML5" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" />
+- CSS <img alt="CSS3" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" />
+- Tailwind <img alt="Tailwind CSS" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" />
+- JavaScript <img alt="JavaScript" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+- TypeScript <img alt="TypeScript" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
+- React.js <img alt="React" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
+- Next.js <img alt="Next.js" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" />
+- Python <img alt="Python" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
+- Java <img alt="Java" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" />
 - C Programming
 - XML
 - REST APIs
+- FastApi <img alt="FastAPI" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" />
 - Backend Development
+- Spring boot <img alt="Spring" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" />
+- C <img alt="C" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
 - Frontend Development
 - Desktop Development
 - JavaFX
 - Java Swing
 - Python Tkinter
-- Three.js
+- Three.js <img alt="Three.js" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg" />
+- Blender <img alt="Blender" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" />
 - Databases
-- PL/SQL and Oracle Database
-- PostgreSQL
-- MongoDB
+- PL/SQL and Oracle Database <img alt="Oracle" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" />
+- PostgreSQL <img alt="PostgreSQL" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />
+- MongoDB <img alt="MongoDB" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
 - Applied Artificial Intelligence
 - RAG Systems
 - Tool Calling
 - Vector Databases
 - DevOps
-- Git and GitHub
-- Docker
+- Git and GitHub <img alt="Git" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" /> <img alt="GitHub" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
+- Docker <img alt="Docker" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
 - GitHub Actions
 - CI/CD
 - Cloud Deployment
@@ -54,36 +61,10 @@ This repository covers the following areas:
 - Object-Oriented Programming
 - Event-Driven Programming
 - UI/UX Design
-- Figma
+- Figma <img alt="Figma" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
 - English for Developers
 - Technical English
 - Technical Tests and Interview Preparation
-
-## 🧰 Languages and Tools
-
-<p align="left">
-  <img alt="HTML5" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" />
-  <img alt="CSS3" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" />
-  <img alt="JavaScript" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
-  <img alt="TypeScript" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
-  <img alt="React" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
-  <img alt="Next.js" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" />
-  <img alt="Tailwind CSS" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" />
-  <img alt="Three.js" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg" />
-  <img alt="Python" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
-  <img alt="FastAPI" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" />
-  <img alt="Java" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" />
-  <img alt="Spring" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" />
-  <img alt="C" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
-  <img alt="Oracle" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" />
-  <img alt="PostgreSQL" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" />
-  <img alt="MongoDB" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" />
-  <img alt="Git" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
-  <img alt="GitHub" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" />
-  <img alt="Docker" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" />
-  <img alt="Figma" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
-  <img alt="Blender" width="35px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" />
-</p>
 
 ## Skills Map
 
@@ -481,232 +462,119 @@ The recommended order for studying the topics in this repository is:
 44. [System Design Basics](./interview-preparation/system-design-basics/README.md)
 45. [Behavioral Interviews](./interview-preparation/behavioral-interviews/README.md)
 
-<h2>Progress Status</h2>
+## Progress Status
 
-<table>
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Topic</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="8"><strong>Programming Languages</strong></td>
-      <td><a href="./programming-languages/html/README.md">HTML</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/css/README.md">CSS</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/javascript/README.md">JavaScript</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/typescript/README.md">TypeScript</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/python/README.md">Python</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/java/README.md">Java</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/c/README.md">C Programming</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./programming-languages/xml/README.md">XML</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Programming Languages
 
-    <tr>
-      <td rowspan="3"><strong>Databases</strong></td>
-      <td><a href="./databases/oracle-plsql/README.md">Oracle PL/SQL</a></td>
-      <td>🟡 In Progress</td>
-    </tr>
-    <tr>
-      <td><a href="./databases/postgresql/README.md">PostgreSQL</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./databases/mongodb/README.md">MongoDB</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [HTML](./programming-languages/html/README.md) | ⚪ Pending |
+| [CSS](./programming-languages/css/README.md) | ⚪ Pending |
+| [JavaScript](./programming-languages/javascript/README.md) | ⚪ Pending |
+| [TypeScript](./programming-languages/typescript/README.md) | ⚪ Pending |
+| [Python](./programming-languages/python/README.md) | ⚪ Pending |
+| [Java](./programming-languages/java/README.md) | ⚪ Pending |
+| [C Programming](./programming-languages/c/README.md) | ⚪ Pending |
+| [XML](./programming-languages/xml/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="4"><strong>Backend</strong></td>
-      <td><a href="./backend/api-rest/README.md">REST APIs</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./backend/fastapi/README.md">FastAPI</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./backend/springboot/README.md">Spring Boot</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./backend/node-express/README.md">Node.js and Express</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Databases
 
-    <tr>
-      <td rowspan="4"><strong>Frontend</strong></td>
-      <td><a href="./frontend/react/README.md">React</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./frontend/nextjs/README.md">Next.js</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./frontend/tailwind/README.md">Tailwind CSS</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./frontend/threejs/README.md">Three.js</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [Oracle PL/SQL](./databases/oracle-plsql/README.md) | 🟡 In Progress |
+| [PostgreSQL](./databases/postgresql/README.md) | ⚪ Pending |
+| [MongoDB](./databases/mongodb/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="2"><strong>Design</strong></td>
-      <td><a href="./design/ui-ux/README.md">UI/UX Design</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./design/figma/README.md">Figma</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Backend
 
-    <tr>
-      <td rowspan="3"><strong>Desktop Development</strong></td>
-      <td><a href="./desktop-development/javafx/README.md">JavaFX</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./desktop-development/java-swing/README.md">Java Swing</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./desktop-development/python-tkinter/README.md">Python Tkinter</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [REST APIs](./backend/api-rest/README.md) | ⚪ Pending |
+| [FastAPI](./backend/fastapi/README.md) | ⚪ Pending |
+| [Spring Boot](./backend/springboot/README.md) | ⚪ Pending |
+| [Node.js and Express](./backend/node-express/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="4"><strong>Software Engineering</strong></td>
-      <td><a href="./software-engineering/oop/README.md">Object-Oriented Programming</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./software-engineering/event-driven-programming/README.md">Event-Driven Programming</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./software-engineering/mvc/README.md">MVC Architecture</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./software-engineering/software-architecture/README.md">Software Architecture</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Frontend
 
-    <tr>
-      <td rowspan="3"><strong>Artificial Intelligence</strong></td>
-      <td><a href="./ai/rag/README.md">RAG Systems</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./ai/tool-calling/README.md">Tool Calling</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./ai/vector-databases/README.md">Vector Databases</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [React](./frontend/react/README.md) | ⚪ Pending |
+| [Next.js](./frontend/nextjs/README.md) | ⚪ Pending |
+| [Tailwind CSS](./frontend/tailwind/README.md) | ⚪ Pending |
+| [Three.js](./frontend/threejs/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="4"><strong>DevOps</strong></td>
-      <td><a href="./devops/git-github/README.md">Git and GitHub</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./devops/docker/README.md">Docker</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./devops/github-actions/README.md">GitHub Actions</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./devops/cloud-deployment/README.md">Cloud Deployment</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Design
 
-    <tr>
-      <td rowspan="2"><strong>Security</strong></td>
-      <td><a href="./security/owasp-top-10/README.md">OWASP Top 10</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./security/owasp-api-security/README.md">OWASP API Security</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [UI/UX Design](./design/ui-ux/README.md) | ⚪ Pending |
+| [Figma](./design/figma/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="4"><strong>Methodologies</strong></td>
-      <td><a href="./methodologies/agile/README.md">Agile</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./methodologies/scrum/README.md">Scrum</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./methodologies/kanban/README.md">Kanban</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./methodologies/jira/README.md">Jira</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+### Desktop Development
 
-    <tr>
-      <td rowspan="2"><strong>Languages</strong></td>
-      <td><a href="./languages/english-for-developers/README.md">English for Developers</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./languages/technical-english/README.md">Technical English</a></td>
-      <td>⚪ Pending</td>
-    </tr>
+| Topic | Status |
+|---|---|
+| [JavaFX](./desktop-development/javafx/README.md) | ⚪ Pending |
+| [Java Swing](./desktop-development/java-swing/README.md) | ⚪ Pending |
+| [Python Tkinter](./desktop-development/python-tkinter/README.md) | ⚪ Pending |
 
-    <tr>
-      <td rowspan="4"><strong>Interview Preparation</strong></td>
-      <td><a href="./interview-preparation/technical-tests/README.md">Technical Tests</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./interview-preparation/coding-challenges/README.md">Coding Challenges</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./interview-preparation/system-design-basics/README.md">System Design Basics</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-    <tr>
-      <td><a href="./interview-preparation/behavioral-interviews/README.md">Behavioral Interviews</a></td>
-      <td>⚪ Pending</td>
-    </tr>
-  </tbody>
-</table>
+### Software Engineering
+
+| Topic | Status |
+|---|---|
+| [Object-Oriented Programming](./software-engineering/oop/README.md) | ⚪ Pending |
+| [Event-Driven Programming](./software-engineering/event-driven-programming/README.md) | ⚪ Pending |
+| [MVC Architecture](./software-engineering/mvc/README.md) | ⚪ Pending |
+| [Software Architecture](./software-engineering/software-architecture/README.md) | ⚪ Pending |
+
+### Artificial Intelligence
+
+| Topic | Status |
+|---|---|
+| [RAG Systems](./ai/rag/README.md) | ⚪ Pending |
+| [Tool Calling](./ai/tool-calling/README.md) | ⚪ Pending |
+| [Vector Databases](./ai/vector-databases/README.md) | ⚪ Pending |
+
+### DevOps
+
+| Topic | Status |
+|---|---|
+| [Git and GitHub](./devops/git-github/README.md) | ⚪ Pending |
+| [Docker](./devops/docker/README.md) | ⚪ Pending |
+| [GitHub Actions](./devops/github-actions/README.md) | ⚪ Pending |
+| [Cloud Deployment](./devops/cloud-deployment/README.md) | ⚪ Pending |
+
+### Security
+
+| Topic | Status |
+|---|---|
+| [OWASP Top 10](./security/owasp-top-10/README.md) | ⚪ Pending |
+| [OWASP API Security](./security/owasp-api-security/README.md) | ⚪ Pending |
+
+### Methodologies
+
+| Topic | Status |
+|---|---|
+| [Agile](./methodologies/agile/README.md) | ⚪ Pending |
+| [Scrum](./methodologies/scrum/README.md) | ⚪ Pending |
+| [Kanban](./methodologies/kanban/README.md) | ⚪ Pending |
+| [Jira](./methodologies/jira/README.md) | ⚪ Pending |
+
+### Languages
+
+| Topic | Status |
+|---|---|
+| [English for Developers](./languages/english-for-developers/README.md) | ⚪ Pending |
+| [Technical English](./languages/technical-english/README.md) | ⚪ Pending |
+
+### Interview Preparation
+
+| Topic | Status |
+|---|---|
+| [Technical Tests](./interview-preparation/technical-tests/README.md) | ⚪ Pending |
+| [Coding Challenges](./interview-preparation/coding-challenges/README.md) | ⚪ Pending |
+| [System Design Basics](./interview-preparation/system-design-basics/README.md) | ⚪ Pending |
+| [Behavioral Interviews](./interview-preparation/behavioral-interviews/README.md) | ⚪ Pending |
 
 ## Practical Goal
 
