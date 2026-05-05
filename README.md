@@ -23,13 +23,12 @@ This repository covers the following areas:
 - Next.js <img alt="Next.js" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" />
 - Python <img alt="Python" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
 - Java <img alt="Java" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" />
-- C Programming
+- C Programming <img alt="C" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
 - XML
 - REST APIs
 - FastApi <img alt="FastAPI" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" />
 - Backend Development
 - Spring boot <img alt="Spring" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" />
-- C <img alt="C" width="15px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
 - Frontend Development
 - Desktop Development
 - JavaFX
@@ -75,14 +74,16 @@ graph TD;
     Frontend-->HTML5;
     Frontend-->CSS3;
     Frontend-->JavaScript;
-    Frontend-->TypeScript;
-    Frontend-->React;
-    Frontend-->NextJS;
-    Frontend-->TailwindCSS;
-    Frontend-->ThreeJS;
+
     Frontend-->XML;
-    Design-->UIUX;
+    Design-->UI-UX;
     Design-->Figma;
+
+    JavaScript-->TypeScript;
+    JavaScript-->React;
+    JavaScript-->NextJS;
+    JavaScript-->ThreeJS;
+    CSS3-->TailwindCSS;
 ```
 
 ### Backend and Databases
@@ -92,9 +93,6 @@ graph TD;
     Backend-->Python;
     Backend-->Java;
     Backend-->JavaScript;
-    Backend-->NodeJS;
-    Backend-->FastAPI;
-    Backend-->SpringBoot;
     Backend-->REST_APIs;
     Backend-->MVC;
 
@@ -103,11 +101,11 @@ graph TD;
     Databases-->PostgreSQL;
     Databases-->MongoDB;
 
+    Python-->Tkinter;
+    Python-->FastAPI;
     Java-->SpringBoot;
     Java-->JavaFX;
     Java-->JavaSwing;
-    Python-->Tkinter;
-    Python-->FastAPI;
     JavaScript-->NodeJS;
 ```
 
@@ -121,7 +119,7 @@ graph TD;
 
     JavaFX-->Event_Driven_Programming;
     JavaSwing-->Event_Driven_Programming;
-    PythonTkinter-->Event_Driven_Programming;
+    PythonTkinter-->Event_Driven_Programming(EDP);
 
     Desktop_Development-->MVC;
     Desktop_Development-->OOP;
