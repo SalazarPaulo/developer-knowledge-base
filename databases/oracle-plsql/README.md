@@ -75,6 +75,69 @@ By the end of this module, the reader should be able to:
 
 ---
 
+## Sample Database Used in the Examples
+
+The following sample tables are used to explain how each command affects the final result.
+
+### `departments`
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+| 2 | Finance |
+| 3 | Human Resources |
+| 4 | Operations |
+
+### `employees`
+
+| employee_id | first_name | last_name | email | salary | hire_date | department_id |
+|---:|---|---|---|---:|---|---:|
+| 101 | Ana | Torres | ana.torres@example.com | 1500 | 2024-01-10 | 1 |
+| 102 | Luis | Perez | luis.perez@example.com | 1800 | 2024-02-15 | 1 |
+| 103 | Marta | Gomez | marta.gomez@example.com | 1300 | 2024-03-20 | 2 |
+| 104 | Carlos | Diaz | carlos.diaz@example.com | 2200 | 2024-04-05 | 2 |
+| 105 | Pedro | Salazar | pedro.salazar@example.com | 3000 | 2024-05-12 | 3 |
+
+### Base setup script
+
+```sql
+CREATE TABLE departments (
+    department_id NUMBER PRIMARY KEY,
+    department_name VARCHAR2(100) NOT NULL
+);
+
+CREATE TABLE employees (
+    employee_id NUMBER PRIMARY KEY,
+    first_name VARCHAR2(50) NOT NULL,
+    last_name VARCHAR2(50) NOT NULL,
+    email VARCHAR2(100) UNIQUE,
+    salary NUMBER(10,2),
+    hire_date DATE,
+    department_id NUMBER,
+    CONSTRAINT fk_emp_dept
+        FOREIGN KEY (department_id)
+        REFERENCES departments(department_id)
+);
+
+INSERT INTO departments VALUES (1, 'Technology');
+INSERT INTO departments VALUES (2, 'Finance');
+INSERT INTO departments VALUES (3, 'Human Resources');
+INSERT INTO departments VALUES (4, 'Operations');
+
+INSERT INTO employees VALUES (101, 'Ana', 'Torres', 'ana.torres@example.com', 1500, DATE '2024-01-10', 1);
+INSERT INTO employees VALUES (102, 'Luis', 'Perez', 'luis.perez@example.com', 1800, DATE '2024-02-15', 1);
+INSERT INTO employees VALUES (103, 'Marta', 'Gomez', 'marta.gomez@example.com', 1300, DATE '2024-03-20', 2);
+INSERT INTO employees VALUES (104, 'Carlos', 'Diaz', 'carlos.diaz@example.com', 2200, DATE '2024-04-05', 2);
+INSERT INTO employees VALUES (105, 'Pedro', 'Salazar', 'pedro.salazar@example.com', 3000, DATE '2024-05-12', 3);
+
+COMMIT;
+```
+
+These tables make it easier to understand the expected output of `SELECT`, `JOIN`, `GROUP BY`, subqueries, procedures, functions, and triggers.
+
+
+---
+
 ## Oracle SQL vs PL/SQL
 
 ### SQL
@@ -123,6 +186,44 @@ END;
 /
 ```
 
+
+
+### Expected result example
+
+Using the sample `employees` table:
+
+```sql
+DESC employees;
+```
+
+Expected structure:
+
+| Column | Type | Nullable |
+|---|---|---|
+| EMPLOYEE_ID | NUMBER | No |
+| FIRST_NAME | VARCHAR2(50) | No |
+| LAST_NAME | VARCHAR2(50) | No |
+| EMAIL | VARCHAR2(100) | Yes |
+| SALARY | NUMBER(10,2) | Yes |
+| HIRE_DATE | DATE | Yes |
+| DEPARTMENT_ID | NUMBER | Yes |
+
+If `SET SERVEROUTPUT ON` is enabled, this block:
+
+```sql
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello from PL/SQL');
+END;
+/
+```
+
+Expected output:
+
+```text
+Hello from PL/SQL
+```
+
+
 ---
 
 ## Basic Environment Commands
@@ -154,6 +255,45 @@ DESC employees;
 ```sql
 @script.sql
 ```
+
+
+
+### Expected result example
+
+After creating `example_types`, insert a sample row:
+
+```sql
+INSERT INTO example_types (
+    id,
+    name,
+    code,
+    created_at,
+    description
+)
+VALUES (
+    1,
+    'Oracle Example',
+    'A1001',
+    SYSDATE,
+    'This is a CLOB text example.'
+);
+```
+
+Query:
+
+```sql
+SELECT id, name, code, description
+FROM example_types;
+```
+
+Expected result:
+
+| id | name | code | description |
+|---:|---|---|---|
+| 1 | Oracle Example | A1001 | This is a CLOB text example. |
+
+The result shows how each data type stores a different kind of value: numbers, text, fixed-size codes, dates, and long text.
+
 
 ---
 
@@ -197,6 +337,85 @@ BEGIN
 END;
 /
 ```
+
+
+
+### Expected result examples
+
+#### After `CREATE TABLE departments`
+
+Query:
+
+```sql
+SELECT table_name
+FROM user_tables
+WHERE table_name = 'DEPARTMENTS';
+```
+
+Expected result:
+
+| table_name |
+|---|
+| DEPARTMENTS |
+
+This confirms that the table was created.
+
+#### After `ALTER TABLE employees ADD phone_number`
+
+Query:
+
+```sql
+DESC employees;
+```
+
+Expected additional column:
+
+| Column | Type |
+|---|---|
+| PHONE_NUMBER | VARCHAR2(20) |
+
+#### After `ALTER TABLE employees RENAME COLUMN phone_number TO phone`
+
+Expected structure change:
+
+| Old column | New column |
+|---|---|
+| PHONE_NUMBER | PHONE |
+
+#### After `TRUNCATE TABLE company_employees`
+
+Query:
+
+```sql
+SELECT COUNT(*) AS total_rows
+FROM company_employees;
+```
+
+Expected result:
+
+| total_rows |
+|---:|
+| 0 |
+
+The table still exists, but all rows were removed.
+
+#### After `DROP TABLE company_employees`
+
+Query:
+
+```sql
+SELECT *
+FROM company_employees;
+```
+
+Expected result:
+
+```text
+ORA-00942: table or view does not exist
+```
+
+The table no longer exists in the schema.
+
 
 ---
 
@@ -286,6 +505,63 @@ DROP TABLE company_employees;
 
 `DROP` removes the table structure and its data.
 
+
+
+### Expected result examples
+
+#### Primary key violation
+
+If `customer_id = 1` already exists:
+
+```sql
+INSERT INTO customers (customer_id, full_name)
+VALUES (1, 'Duplicate Customer');
+```
+
+Expected result:
+
+```text
+ORA-00001: unique constraint violated
+```
+
+The primary key prevents duplicate identifiers.
+
+#### Foreign key violation
+
+If `customer_id = 999` does not exist in `customers`:
+
+```sql
+INSERT INTO orders (order_id, customer_id)
+VALUES (10, 999);
+```
+
+Expected result:
+
+```text
+ORA-02291: integrity constraint violated - parent key not found
+```
+
+The foreign key prevents inserting an order for a customer that does not exist.
+
+#### Check constraint violation
+
+If the salary must be greater than or equal to zero:
+
+```sql
+UPDATE employees
+SET salary = -500
+WHERE employee_id = 101;
+```
+
+Expected result:
+
+```text
+ORA-02290: check constraint violated
+```
+
+The check constraint protects the table from invalid salary values.
+
+
 ---
 
 ## Constraints
@@ -340,6 +616,124 @@ ALTER TABLE employees
 ADD CONSTRAINT uq_employee_email
 UNIQUE (email);
 ```
+
+
+
+### Expected result examples
+
+#### INSERT result
+
+Before insert:
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+| 2 | Finance |
+
+Command:
+
+```sql
+INSERT INTO departments (department_id, department_name)
+VALUES (3, 'Human Resources');
+```
+
+After insert:
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+| 2 | Finance |
+| 3 | Human Resources |
+
+#### UPDATE result
+
+Before update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+| 102 | Luis | 1800 |
+
+Command:
+
+```sql
+UPDATE employees
+SET salary = salary + 200
+WHERE employee_id = 101;
+```
+
+After update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1700 |
+| 102 | Luis | 1800 |
+
+Only Ana is affected because she matches the `WHERE` condition.
+
+#### DELETE result
+
+Before delete:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+| 102 | Luis | 1800 |
+| 103 | Marta | 1300 |
+
+Command:
+
+```sql
+DELETE FROM employees
+WHERE employee_id = 103;
+```
+
+After delete:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+| 102 | Luis | 1800 |
+
+Marta is removed from the table.
+
+#### MERGE result
+
+Before `MERGE`:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+Command logic:
+
+```sql
+MERGE INTO employees e
+USING (
+    SELECT 101 AS employee_id,
+           'Ana' AS first_name,
+           'Torres' AS last_name,
+           'ana.torres@example.com' AS email,
+           1800 AS salary,
+           1 AS department_id
+    FROM dual
+) src
+ON (e.employee_id = src.employee_id)
+WHEN MATCHED THEN
+    UPDATE SET e.salary = src.salary
+WHEN NOT MATCHED THEN
+    INSERT (employee_id, first_name, last_name, email, salary, department_id)
+    VALUES (src.employee_id, src.first_name, src.last_name, src.email, src.salary, src.department_id);
+```
+
+After `MERGE`:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1800 |
+
+Because `employee_id = 101` already existed, Oracle updated the salary instead of inserting a new row.
+
 
 ---
 
@@ -420,6 +814,137 @@ WHEN NOT MATCHED THEN
     INSERT (employee_id, first_name, last_name, email, salary, department_id)
     VALUES (src.employee_id, src.first_name, src.last_name, src.email, src.salary, src.department_id);
 ```
+
+
+
+### Expected result examples
+
+Using the sample `employees` table:
+
+#### `SELECT *`
+
+```sql
+SELECT *
+FROM employees;
+```
+
+Expected result:
+
+| employee_id | first_name | last_name | salary | department_id |
+|---:|---|---|---:|---:|
+| 101 | Ana | Torres | 1500 | 1 |
+| 102 | Luis | Perez | 1800 | 1 |
+| 103 | Marta | Gomez | 1300 | 2 |
+| 104 | Carlos | Diaz | 2200 | 2 |
+| 105 | Pedro | Salazar | 3000 | 3 |
+
+#### `WHERE`
+
+```sql
+SELECT first_name, salary
+FROM employees
+WHERE salary > 1800;
+```
+
+Expected result:
+
+| first_name | salary |
+|---|---:|
+| Carlos | 2200 |
+| Pedro | 3000 |
+
+Only employees with salary greater than `1800` are returned.
+
+#### `ORDER BY`
+
+```sql
+SELECT first_name, salary
+FROM employees
+ORDER BY salary DESC;
+```
+
+Expected result:
+
+| first_name | salary |
+|---|---:|
+| Pedro | 3000 |
+| Carlos | 2200 |
+| Luis | 1800 |
+| Ana | 1500 |
+| Marta | 1300 |
+
+The rows are sorted from highest salary to lowest salary.
+
+#### `DISTINCT`
+
+```sql
+SELECT DISTINCT department_id
+FROM employees;
+```
+
+Expected result:
+
+| department_id |
+|---:|
+| 1 |
+| 2 |
+| 3 |
+
+Repeated department values are shown only once.
+
+#### Aggregate functions
+
+```sql
+SELECT COUNT(*) AS total_employees,
+       AVG(salary) AS average_salary,
+       MIN(salary) AS minimum_salary,
+       MAX(salary) AS maximum_salary,
+       SUM(salary) AS total_salary
+FROM employees;
+```
+
+Expected result:
+
+| total_employees | average_salary | minimum_salary | maximum_salary | total_salary |
+|---:|---:|---:|---:|---:|
+| 5 | 1960 | 1300 | 3000 | 9800 |
+
+#### `GROUP BY`
+
+```sql
+SELECT department_id,
+       COUNT(*) AS total_employees
+FROM employees
+GROUP BY department_id;
+```
+
+Expected result:
+
+| department_id | total_employees |
+|---:|---:|
+| 1 | 2 |
+| 2 | 2 |
+| 3 | 1 |
+
+#### `HAVING`
+
+```sql
+SELECT department_id,
+       COUNT(*) AS total_employees
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) > 1;
+```
+
+Expected result:
+
+| department_id | total_employees |
+|---:|---:|
+| 1 | 2 |
+| 2 | 2 |
+
+Department `3` is not shown because it has only one employee.
+
 
 ---
 
@@ -506,6 +1031,122 @@ HAVING COUNT(*) > 2;
 `WHERE` filters rows before grouping.  
 `HAVING` filters groups after grouping.
 
+
+
+### Expected result examples
+
+Using the sample tables:
+
+**departments**
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+| 2 | Finance |
+| 3 | Human Resources |
+| 4 | Operations |
+
+**employees**
+
+| employee_id | first_name | department_id |
+|---:|---|---:|
+| 101 | Ana | 1 |
+| 102 | Luis | 1 |
+| 103 | Marta | 2 |
+| 104 | Carlos | 2 |
+| 105 | Pedro | 3 |
+
+#### INNER JOIN
+
+```sql
+SELECT e.first_name,
+       d.department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+Expected result:
+
+| first_name | department_name |
+|---|---|
+| Ana | Technology |
+| Luis | Technology |
+| Marta | Finance |
+| Carlos | Finance |
+| Pedro | Human Resources |
+
+Only rows with matching `department_id` in both tables are returned.
+
+#### LEFT JOIN
+
+```sql
+SELECT e.first_name,
+       d.department_name
+FROM employees e
+LEFT JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+Expected result:
+
+| first_name | department_name |
+|---|---|
+| Ana | Technology |
+| Luis | Technology |
+| Marta | Finance |
+| Carlos | Finance |
+| Pedro | Human Resources |
+
+All employees are returned. If an employee had no department, the department name would be `NULL`.
+
+#### RIGHT JOIN
+
+```sql
+SELECT e.first_name,
+       d.department_name
+FROM employees e
+RIGHT JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+Expected result:
+
+| first_name | department_name |
+|---|---|
+| Ana | Technology |
+| Luis | Technology |
+| Marta | Finance |
+| Carlos | Finance |
+| Pedro | Human Resources |
+| NULL | Operations |
+
+The `Operations` department appears even though it has no employees.
+
+#### FULL OUTER JOIN
+
+```sql
+SELECT e.first_name,
+       d.department_name
+FROM employees e
+FULL OUTER JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+Expected result:
+
+| first_name | department_name |
+|---|---|
+| Ana | Technology |
+| Luis | Technology |
+| Marta | Finance |
+| Carlos | Finance |
+| Pedro | Human Resources |
+| NULL | Operations |
+
+A full outer join returns matched rows plus unmatched rows from both tables.
+
+
 ---
 
 ## Joins
@@ -563,6 +1204,114 @@ FULL OUTER JOIN departments d
 ON e.department_id = d.department_id;
 ```
 
+
+
+### Expected result examples
+
+#### Subquery in `WHERE`
+
+```sql
+SELECT first_name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+
+Inner query result:
+
+| average_salary |
+|---:|
+| 1960 |
+
+Final expected result:
+
+| first_name | salary |
+|---|---:|
+| Carlos | 2200 |
+| Pedro | 3000 |
+
+The inner query calculates the average salary. The outer query returns employees whose salary is greater than that average.
+
+#### Subquery in `FROM`
+
+```sql
+SELECT department_id, average_salary
+FROM (
+    SELECT department_id,
+           AVG(salary) AS average_salary
+    FROM employees
+    GROUP BY department_id
+);
+```
+
+Inner query temporary result:
+
+| department_id | average_salary |
+|---:|---:|
+| 1 | 1650 |
+| 2 | 1750 |
+| 3 | 3000 |
+
+Final expected result:
+
+| department_id | average_salary |
+|---:|---:|
+| 1 | 1650 |
+| 2 | 1750 |
+| 3 | 3000 |
+
+The subquery in the `FROM` clause behaves like a temporary table.
+
+#### Subquery in `FROM` with `JOIN`
+
+```sql
+SELECT d.department_name,
+       avg_data.average_salary
+FROM departments d
+JOIN (
+    SELECT department_id,
+           AVG(salary) AS average_salary
+    FROM employees
+    GROUP BY department_id
+) avg_data
+ON d.department_id = avg_data.department_id;
+```
+
+Expected result:
+
+| department_name | average_salary |
+|---|---:|
+| Technology | 1650 |
+| Finance | 1750 |
+| Human Resources | 3000 |
+
+This example shows how a calculated temporary result can be joined with another table.
+
+#### `EXISTS`
+
+```sql
+SELECT department_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+);
+```
+
+Expected result:
+
+| department_name |
+|---|
+| Technology |
+| Finance |
+| Human Resources |
+
+`Operations` is not returned because it has no employees.
+
+
 ---
 
 ## Subqueries
@@ -604,6 +1353,35 @@ WHERE EXISTS (
 );
 ```
 
+
+
+### Expected result examples
+
+```sql
+SELECT 10 + 5 AS result
+FROM dual;
+```
+
+Expected result:
+
+| result |
+|---:|
+| 15 |
+
+```sql
+SELECT UPPER('oracle database') AS text_result
+FROM dual;
+```
+
+Expected result:
+
+| text_result |
+|---|
+| ORACLE DATABASE |
+
+`DUAL` is useful when you need Oracle to calculate or return something that does not come from a real user table.
+
+
 ---
 
 ## The DUAL Table
@@ -629,6 +1407,80 @@ FROM dual;
 SELECT UPPER('oracle database') AS text_result
 FROM dual;
 ```
+
+
+
+### Expected result examples
+
+#### Text functions
+
+```sql
+SELECT UPPER('oracle') AS upper_text,
+       LOWER('ORACLE') AS lower_text,
+       INITCAP('oracle database') AS initcap_text,
+       LENGTH('Oracle') AS text_length,
+       SUBSTR('Oracle Database', 1, 6) AS substring_text
+FROM dual;
+```
+
+Expected result:
+
+| upper_text | lower_text | initcap_text | text_length | substring_text |
+|---|---|---|---:|---|
+| ORACLE | oracle | Oracle Database | 6 | Oracle |
+
+#### Numeric functions
+
+```sql
+SELECT ROUND(15.678, 2) AS rounded_value,
+       TRUNC(15.678, 2) AS truncated_value,
+       MOD(10, 3) AS remainder
+FROM dual;
+```
+
+Expected result:
+
+| rounded_value | truncated_value | remainder |
+|---:|---:|---:|
+| 15.68 | 15.67 | 1 |
+
+#### NULL functions
+
+```sql
+SELECT NVL(NULL, 'Default value') AS nvl_result,
+       COALESCE(NULL, NULL, 'Final value') AS coalesce_result
+FROM dual;
+```
+
+Expected result:
+
+| nvl_result | coalesce_result |
+|---|---|
+| Default value | Final value |
+
+#### CASE expression
+
+```sql
+SELECT first_name,
+       salary,
+       CASE
+           WHEN salary >= 3000 THEN 'High'
+           WHEN salary >= 1500 THEN 'Medium'
+           ELSE 'Low'
+       END AS salary_level
+FROM employees;
+```
+
+Expected result:
+
+| first_name | salary | salary_level |
+|---|---:|---|
+| Ana | 1500 | Medium |
+| Luis | 1800 | Medium |
+| Marta | 1300 | Low |
+| Carlos | 2200 | Medium |
+| Pedro | 3000 | High |
+
 
 ---
 
@@ -699,6 +1551,95 @@ SELECT first_name,
 FROM employees;
 ```
 
+
+
+### Expected result examples
+
+#### `COMMIT`
+
+Before insert:
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+
+Command:
+
+```sql
+INSERT INTO departments (department_id, department_name)
+VALUES (2, 'Finance');
+
+COMMIT;
+```
+
+After `COMMIT`:
+
+| department_id | department_name |
+|---:|---|
+| 1 | Technology |
+| 2 | Finance |
+
+The new row is permanently saved.
+
+#### `ROLLBACK`
+
+Before update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+Command:
+
+```sql
+UPDATE employees
+SET salary = 9999
+WHERE employee_id = 101;
+
+ROLLBACK;
+```
+
+After `ROLLBACK`:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+The update is undone because it was not committed.
+
+#### `SAVEPOINT`
+
+Initial state:
+
+| employee_id | first_name | department_id | salary |
+|---:|---|---:|---:|
+| 101 | Ana | 1 | 1500 |
+| 103 | Marta | 2 | 1300 |
+
+After first update:
+
+| employee_id | first_name | department_id | salary |
+|---:|---|---:|---:|
+| 101 | Ana | 1 | 1600 |
+| 103 | Marta | 2 | 1300 |
+
+After second update before rollback:
+
+| employee_id | first_name | department_id | salary |
+|---:|---|---:|---:|
+| 101 | Ana | 1 | 1600 |
+| 103 | Marta | 2 | 1800 |
+
+After `ROLLBACK TO salary_update_1`:
+
+| employee_id | first_name | department_id | salary |
+|---:|---|---:|---:|
+| 101 | Ana | 1 | 1600 |
+| 103 | Marta | 2 | 1300 |
+
+Only the second update is undone.
+
+
 ---
 
 ## Transactions
@@ -746,6 +1687,51 @@ COMMIT;
 ```
 
 A `SAVEPOINT` allows returning to a specific point inside a transaction.
+
+
+
+### Expected output examples
+
+#### Basic block
+
+```sql
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hello from PL/SQL');
+END;
+/
+```
+
+Expected output:
+
+```text
+Hello from PL/SQL
+```
+
+#### Complete block
+
+```sql
+DECLARE
+    v_name VARCHAR2(50);
+    v_age NUMBER;
+BEGIN
+    v_name := 'Pedro';
+    v_age := 25;
+
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('Age: ' || v_age);
+END;
+/
+```
+
+Expected output:
+
+```text
+Name: Pedro
+Age: 25
+```
+
+The result appears in the DBMS Output panel when `SET SERVEROUTPUT ON` is enabled.
+
 
 ---
 
@@ -806,6 +1792,93 @@ Explanation:
 - `EXCEPTION`: handles errors.
 - `END;`: closes the block.
 - `/`: executes the PL/SQL block in SQL Developer or SQL*Plus.
+
+
+
+### Expected output examples
+
+#### Basic variable
+
+```sql
+DECLARE
+    v_salary NUMBER := 1000;
+BEGIN
+    v_salary := v_salary + 200;
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+END;
+/
+```
+
+Expected output:
+
+```text
+Salary: 1200
+```
+
+#### Constant
+
+```sql
+DECLARE
+    c_tax CONSTANT NUMBER := 0.07;
+    v_price NUMBER := 100;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Total: ' || (v_price + v_price * c_tax));
+END;
+/
+```
+
+Expected output:
+
+```text
+Total: 107
+```
+
+#### `%TYPE`
+
+If employee `101` is Ana:
+
+```sql
+DECLARE
+    v_first_name employees.first_name%TYPE;
+BEGIN
+    SELECT first_name
+    INTO v_first_name
+    FROM employees
+    WHERE employee_id = 101;
+
+    DBMS_OUTPUT.PUT_LINE(v_first_name);
+END;
+/
+```
+
+Expected output:
+
+```text
+Ana
+```
+
+#### `%ROWTYPE`
+
+```sql
+DECLARE
+    v_employee employees%ROWTYPE;
+BEGIN
+    SELECT *
+    INTO v_employee
+    FROM employees
+    WHERE employee_id = 101;
+
+    DBMS_OUTPUT.PUT_LINE(v_employee.first_name || ' ' || v_employee.last_name);
+END;
+/
+```
+
+Expected output:
+
+```text
+Ana Torres
+```
+
 
 ---
 
@@ -873,6 +1946,60 @@ END;
 /
 ```
 
+
+
+### Expected output examples
+
+#### `IF`
+
+```sql
+DECLARE
+    v_salary NUMBER := 1800;
+BEGIN
+    IF v_salary >= 3000 THEN
+        DBMS_OUTPUT.PUT_LINE('High salary');
+    ELSIF v_salary >= 1500 THEN
+        DBMS_OUTPUT.PUT_LINE('Medium salary');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Low salary');
+    END IF;
+END;
+/
+```
+
+Expected output:
+
+```text
+Medium salary
+```
+
+The value `1800` satisfies the second condition.
+
+#### `CASE`
+
+```sql
+DECLARE
+    v_status CHAR(1) := 'A';
+BEGIN
+    CASE v_status
+        WHEN 'A' THEN
+            DBMS_OUTPUT.PUT_LINE('Active');
+        WHEN 'I' THEN
+            DBMS_OUTPUT.PUT_LINE('Inactive');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Unknown status');
+    END CASE;
+END;
+/
+```
+
+Expected output:
+
+```text
+Active
+```
+
+
 ---
 
 ## Conditional Statements
@@ -911,6 +2038,59 @@ BEGIN
 END;
 /
 ```
+
+
+
+### Expected output examples
+
+#### Basic `LOOP`
+
+Expected output:
+
+```text
+Counter: 1
+Counter: 2
+Counter: 3
+Counter: 4
+Counter: 5
+```
+
+#### `WHILE LOOP`
+
+Expected output:
+
+```text
+Counter: 1
+Counter: 2
+Counter: 3
+Counter: 4
+Counter: 5
+```
+
+#### `FOR LOOP`
+
+Expected output:
+
+```text
+Number: 1
+Number: 2
+Number: 3
+Number: 4
+Number: 5
+```
+
+#### Reverse `FOR LOOP`
+
+Expected output:
+
+```text
+Number: 5
+Number: 4
+Number: 3
+Number: 2
+Number: 1
+```
+
 
 ---
 
@@ -968,6 +2148,54 @@ END;
 /
 ```
 
+
+
+### Expected output example
+
+For employee `101`:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+Block:
+
+```sql
+DECLARE
+    v_first_name employees.first_name%TYPE;
+    v_salary employees.salary%TYPE;
+BEGIN
+    SELECT first_name, salary
+    INTO v_first_name, v_salary
+    FROM employees
+    WHERE employee_id = 101;
+
+    DBMS_OUTPUT.PUT_LINE('Employee: ' || v_first_name);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+END;
+/
+```
+
+Expected output:
+
+```text
+Employee: Ana
+Salary: 1500
+```
+
+If the query returns no rows, the expected result is:
+
+```text
+ORA-01403: no data found
+```
+
+If the query returns more than one row, the expected result is:
+
+```text
+ORA-01422: exact fetch returns more than requested number of rows
+```
+
+
 ---
 
 ## SELECT INTO
@@ -994,6 +2222,53 @@ Important exceptions:
 
 - `NO_DATA_FOUND`: no row was returned.
 - `TOO_MANY_ROWS`: more than one row was returned.
+
+
+
+### Expected output examples
+
+#### `NO_DATA_FOUND`
+
+```sql
+DECLARE
+    v_first_name employees.first_name%TYPE;
+BEGIN
+    SELECT first_name
+    INTO v_first_name
+    FROM employees
+    WHERE employee_id = 999;
+
+    DBMS_OUTPUT.PUT_LINE(v_first_name);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found');
+END;
+/
+```
+
+Expected output:
+
+```text
+Employee not found
+```
+
+The query does not find employee `999`, so the exception block is executed.
+
+#### Custom error
+
+```sql
+BEGIN
+    RAISE_APPLICATION_ERROR(-20001, 'Salary cannot be negative');
+END;
+/
+```
+
+Expected result:
+
+```text
+ORA-20001: Salary cannot be negative
+```
+
 
 ---
 
@@ -1034,6 +2309,58 @@ END;
 ```
 
 Custom application errors usually use codes between `-20000` and `-20999`.
+
+
+
+### Expected output examples
+
+#### Implicit cursor
+
+If two employees belong to department `1`:
+
+```sql
+BEGIN
+    UPDATE employees
+    SET salary = salary + 100
+    WHERE department_id = 1;
+
+    DBMS_OUTPUT.PUT_LINE('Rows updated: ' || SQL%ROWCOUNT);
+END;
+/
+```
+
+Expected output:
+
+```text
+Rows updated: 2
+```
+
+#### Explicit cursor
+
+Expected output using the sample table:
+
+```text
+Ana earns 1500
+Luis earns 1800
+Marta earns 1300
+Carlos earns 2200
+Pedro earns 3000
+```
+
+#### Cursor `FOR LOOP`
+
+Expected output:
+
+```text
+Ana - 1500
+Luis - 1800
+Marta - 1300
+Carlos - 2200
+Pedro - 3000
+```
+
+The cursor processes one row at a time.
+
 
 ---
 
@@ -1103,6 +2430,56 @@ END;
 ```
 
 Cursor `FOR LOOP` automatically opens, fetches, and closes the cursor.
+
+
+
+### Expected result examples
+
+#### `increase_salary`
+
+Before procedure execution:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+Execution:
+
+```sql
+BEGIN
+    increase_salary(101, 300);
+END;
+/
+```
+
+After procedure execution:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1800 |
+
+The procedure updates Ana's salary by adding `300`.
+
+#### Procedure with `OUT` parameter
+
+```sql
+DECLARE
+    v_salary NUMBER;
+BEGIN
+    get_salary(101, v_salary);
+    DBMS_OUTPUT.PUT_LINE('Salary: ' || v_salary);
+END;
+/
+```
+
+Expected output:
+
+```text
+Salary: 1800
+```
+
+The value is returned through the `OUT` parameter.
+
 
 ---
 
@@ -1182,6 +2559,50 @@ END;
 | `OUT` | Returns a value from the procedure |
 | `IN OUT` | Sends and returns a value |
 
+
+
+### Expected result examples
+
+#### Function in PL/SQL
+
+```sql
+DECLARE
+    v_bonus NUMBER;
+BEGIN
+    v_bonus := calculate_bonus(1500);
+    DBMS_OUTPUT.PUT_LINE('Bonus: ' || v_bonus);
+END;
+/
+```
+
+Expected output:
+
+```text
+Bonus: 150
+```
+
+#### Function in SQL
+
+```sql
+SELECT first_name,
+       salary,
+       calculate_bonus(salary) AS bonus
+FROM employees;
+```
+
+Expected result:
+
+| first_name | salary | bonus |
+|---|---:|---:|
+| Ana | 1500 | 150 |
+| Luis | 1800 | 180 |
+| Marta | 1300 | 130 |
+| Carlos | 2200 | 220 |
+| Pedro | 3000 | 300 |
+
+The function calculates 10% of each salary.
+
+
 ---
 
 ## Functions
@@ -1233,6 +2654,35 @@ FROM employees;
 | Return value | Optional through `OUT` parameters | Required with `RETURN` |
 | Use in SQL query | Usually no | Yes, if valid for SQL usage |
 | Common use | Business operations | Calculations or reusable expressions |
+
+
+
+### Expected result examples
+
+After creating `employee_pkg`, execute:
+
+```sql
+BEGIN
+    employee_pkg.increase_salary(101, 200);
+    DBMS_OUTPUT.PUT_LINE(employee_pkg.calculate_bonus(1500));
+END;
+/
+```
+
+Expected output:
+
+```text
+150
+```
+
+Expected salary effect:
+
+| employee_id | first_name | old_salary | new_salary |
+|---:|---|---:|---:|
+| 101 | Ana | 1500 | 1700 |
+
+The procedure inside the package modifies the salary, while the function returns the bonus value.
+
 
 ---
 
@@ -1300,6 +2750,66 @@ END;
 /
 ```
 
+
+
+### Expected result examples
+
+#### Validation trigger
+
+If the trigger `trg_validate_salary` exists:
+
+```sql
+INSERT INTO employees (
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    salary,
+    department_id
+)
+VALUES (
+    200,
+    'Invalid',
+    'User',
+    'invalid.user@example.com',
+    -100,
+    1
+);
+```
+
+Expected result:
+
+```text
+ORA-20002: Salary cannot be negative
+```
+
+The trigger prevents invalid salary values from being inserted or updated.
+
+#### Audit trigger
+
+Before update:
+
+| employee_id | salary |
+|---:|---:|
+| 101 | 1500 |
+
+Command:
+
+```sql
+UPDATE employees
+SET salary = 1800
+WHERE employee_id = 101;
+```
+
+Expected row in `employee_salary_audit`:
+
+| employee_id | old_salary | new_salary |
+|---:|---:|---:|
+| 101 | 1500 | 1800 |
+
+The trigger automatically stores the salary change.
+
+
 ---
 
 ## Triggers
@@ -1359,6 +2869,57 @@ END;
 
 `OLD` stores the previous value and `NEW` stores the new value.
 
+
+
+### Expected result examples
+
+#### Sequence
+
+If the current sequence value starts at `1`:
+
+```sql
+INSERT INTO employees (
+    employee_id,
+    first_name,
+    last_name,
+    email,
+    salary,
+    department_id
+)
+VALUES (
+    employee_seq.NEXTVAL,
+    'Laura',
+    'Gomez',
+    'laura.gomez@example.com',
+    1300,
+    1
+);
+```
+
+Expected inserted row:
+
+| employee_id | first_name | last_name | salary |
+|---:|---|---|---:|
+| 1 | Laura | Gomez | 1300 |
+
+The ID is generated automatically by the sequence.
+
+#### Identity column
+
+```sql
+INSERT INTO clients (full_name)
+VALUES ('Maria Lopez');
+```
+
+Expected result:
+
+| client_id | full_name |
+|---:|---|
+| 1 | Maria Lopez |
+
+Oracle automatically generates the identity value.
+
+
 ---
 
 ## Sequences and Identity Columns
@@ -1416,6 +2977,30 @@ INSERT INTO clients (full_name)
 VALUES ('Maria Lopez');
 ```
 
+
+
+### Expected result example
+
+After creating `vw_employee_departments`:
+
+```sql
+SELECT *
+FROM vw_employee_departments;
+```
+
+Expected result:
+
+| employee_id | first_name | last_name | salary | department_name |
+|---:|---|---|---:|---|
+| 101 | Ana | Torres | 1500 | Technology |
+| 102 | Luis | Perez | 1800 | Technology |
+| 103 | Marta | Gomez | 1300 | Finance |
+| 104 | Carlos | Diaz | 2200 | Finance |
+| 105 | Pedro | Salazar | 3000 | Human Resources |
+
+The view hides the join logic and lets the user query the result as if it were a table.
+
+
 ---
 
 ## Views
@@ -1447,6 +3032,35 @@ Common uses:
 - Hide sensitive columns.
 - Provide controlled access to data.
 - Improve query readability.
+
+
+
+### Expected result example
+
+After creating this index:
+
+```sql
+CREATE INDEX idx_employees_last_name
+ON employees(last_name);
+```
+
+Query:
+
+```sql
+SELECT index_name,
+       table_name
+FROM user_indexes
+WHERE index_name = 'IDX_EMPLOYEES_LAST_NAME';
+```
+
+Expected result:
+
+| index_name | table_name |
+|---|---|
+| IDX_EMPLOYEES_LAST_NAME | EMPLOYEES |
+
+The visible data in the table does not change. The index affects how Oracle can search the data internally.
+
 
 ---
 
@@ -1481,6 +3095,41 @@ Avoid unnecessary indexes when:
 - The column changes frequently.
 - The column has very low selectivity.
 
+
+
+### Expected result example
+
+After creating the synonym:
+
+```sql
+CREATE SYNONYM emp FOR employees;
+```
+
+Both queries return the same result:
+
+```sql
+SELECT first_name, salary
+FROM employees;
+```
+
+```sql
+SELECT first_name, salary
+FROM emp;
+```
+
+Expected result:
+
+| first_name | salary |
+|---|---:|
+| Ana | 1500 |
+| Luis | 1800 |
+| Marta | 1300 |
+| Carlos | 2200 |
+| Pedro | 3000 |
+
+The synonym works as an alias for the original table.
+
+
 ---
 
 ## Synonyms
@@ -1497,6 +3146,61 @@ Usage:
 SELECT *
 FROM emp;
 ```
+
+
+
+### Expected result examples
+
+#### Create user
+
+```sql
+CREATE USER app_user
+IDENTIFIED BY StrongPassword123;
+```
+
+Expected result:
+
+```text
+User created.
+```
+
+#### Grant privilege
+
+```sql
+GRANT CREATE SESSION TO app_user;
+```
+
+Expected result:
+
+```text
+Grant succeeded.
+```
+
+#### Revoke privilege
+
+```sql
+REVOKE INSERT ON employees FROM app_user;
+```
+
+Expected result:
+
+```text
+Revoke succeeded.
+```
+
+If `app_user` tries to insert after the privilege is revoked:
+
+```sql
+INSERT INTO employees (employee_id, first_name, last_name)
+VALUES (999, 'Test', 'User');
+```
+
+Expected result:
+
+```text
+ORA-01031: insufficient privileges
+```
+
 
 ---
 
@@ -1545,6 +3249,63 @@ GRANT app_readonly_role TO app_user;
 REVOKE INSERT ON employees FROM app_user;
 ```
 
+
+
+### Expected result examples
+
+#### Dynamic table creation
+
+```sql
+DECLARE
+    v_sql VARCHAR2(1000);
+BEGIN
+    v_sql := 'CREATE TABLE dynamic_test (id NUMBER, name VARCHAR2(50))';
+    EXECUTE IMMEDIATE v_sql;
+END;
+/
+```
+
+Check result:
+
+```sql
+SELECT table_name
+FROM user_tables
+WHERE table_name = 'DYNAMIC_TEST';
+```
+
+Expected result:
+
+| table_name |
+|---|
+| DYNAMIC_TEST |
+
+#### Dynamic update with parameters
+
+Before dynamic update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+
+Block:
+
+```sql
+DECLARE
+    v_sql VARCHAR2(1000);
+BEGIN
+    v_sql := 'UPDATE employees SET salary = salary + :1 WHERE employee_id = :2';
+    EXECUTE IMMEDIATE v_sql USING 200, 101;
+END;
+/
+```
+
+After dynamic update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1700 |
+
+
 ---
 
 ## Dynamic SQL
@@ -1576,6 +3337,54 @@ END;
 ```
 
 Using parameters is safer than concatenating values directly.
+
+
+
+### Expected output examples
+
+#### VARRAY
+
+```sql
+DECLARE
+    TYPE name_array IS VARRAY(3) OF VARCHAR2(50);
+    v_names name_array := name_array('Ana', 'Luis', 'Pedro');
+BEGIN
+    FOR i IN 1..v_names.COUNT LOOP
+        DBMS_OUTPUT.PUT_LINE(v_names(i));
+    END LOOP;
+END;
+/
+```
+
+Expected output:
+
+```text
+Ana
+Luis
+Pedro
+```
+
+#### Associative array
+
+```sql
+DECLARE
+    TYPE salary_table IS TABLE OF NUMBER INDEX BY VARCHAR2(50);
+    v_salaries salary_table;
+BEGIN
+    v_salaries('Ana') := 1200;
+    v_salaries('Luis') := 1500;
+
+    DBMS_OUTPUT.PUT_LINE('Ana salary: ' || v_salaries('Ana'));
+END;
+/
+```
+
+Expected output:
+
+```text
+Ana salary: 1200
+```
+
 
 ---
 
@@ -1611,6 +3420,61 @@ BEGIN
 END;
 /
 ```
+
+
+
+### Expected result examples
+
+#### `BULK COLLECT`
+
+Using the sample table:
+
+```sql
+SELECT first_name
+BULK COLLECT INTO v_names
+FROM employees;
+```
+
+Expected collection content:
+
+| Position | Value |
+|---:|---|
+| 1 | Ana |
+| 2 | Luis |
+| 3 | Marta |
+| 4 | Carlos |
+| 5 | Pedro |
+
+Expected output from the loop:
+
+```text
+Ana
+Luis
+Marta
+Carlos
+Pedro
+```
+
+#### `FORALL`
+
+Before `FORALL`:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1500 |
+| 102 | Luis | 1800 |
+| 103 | Marta | 1300 |
+
+After `FORALL` update:
+
+| employee_id | first_name | salary |
+|---:|---|---:|
+| 101 | Ana | 1600 |
+| 102 | Luis | 1900 |
+| 103 | Marta | 1400 |
+
+`FORALL` updates all IDs in the collection efficiently.
+
 
 ---
 
@@ -1650,6 +3514,66 @@ BEGIN
 END;
 /
 ```
+
+
+
+### Expected result examples
+
+#### Show user tables
+
+```sql
+SELECT table_name
+FROM user_tables;
+```
+
+Expected result example:
+
+| table_name |
+|---|
+| DEPARTMENTS |
+| EMPLOYEES |
+| EMPLOYEE_SALARY_AUDIT |
+
+#### Show table columns
+
+```sql
+SELECT column_name,
+       data_type,
+       data_length
+FROM user_tab_columns
+WHERE table_name = 'EMPLOYEES';
+```
+
+Expected result example:
+
+| column_name | data_type | data_length |
+|---|---|---:|
+| EMPLOYEE_ID | NUMBER | 22 |
+| FIRST_NAME | VARCHAR2 | 50 |
+| LAST_NAME | VARCHAR2 | 50 |
+| EMAIL | VARCHAR2 | 100 |
+| SALARY | NUMBER | 22 |
+| HIRE_DATE | DATE | 7 |
+| DEPARTMENT_ID | NUMBER | 22 |
+
+#### Show objects
+
+```sql
+SELECT object_name,
+       object_type,
+       status
+FROM user_objects;
+```
+
+Expected result example:
+
+| object_name | object_type | status |
+|---|---|---|
+| EMPLOYEES | TABLE | VALID |
+| EMPLOYEE_PKG | PACKAGE | VALID |
+| PR_INCREASE_SALARY | PROCEDURE | VALID |
+| FN_BONUS | FUNCTION | VALID |
+
 
 ---
 
@@ -1713,6 +3637,45 @@ FROM user_indexes
 WHERE table_name = 'EMPLOYEES';
 ```
 
+
+
+### Expected result examples
+
+#### `SHOW USER`
+
+```sql
+SHOW USER;
+```
+
+Expected output example:
+
+```text
+USER is "HR"
+```
+
+#### `DESC employees`
+
+Expected output example:
+
+| Name | Null? | Type |
+|---|---|---|
+| EMPLOYEE_ID | NOT NULL | NUMBER |
+| FIRST_NAME | NOT NULL | VARCHAR2(50) |
+| LAST_NAME | NOT NULL | VARCHAR2(50) |
+| EMAIL |  | VARCHAR2(100) |
+| SALARY |  | NUMBER(10,2) |
+| HIRE_DATE |  | DATE |
+| DEPARTMENT_ID |  | NUMBER |
+
+#### `CLEAR SCREEN`
+
+Expected result:
+
+```text
+The SQL*Plus screen is cleared.
+```
+
+
 ---
 
 ## SQL Developer and SQL*Plus Useful Commands
@@ -1746,6 +3709,50 @@ DESC employees;
 ```sql
 CLEAR SCREEN;
 ```
+
+
+
+### Expected final project result
+
+After completing all the project steps, this query:
+
+```sql
+SELECT e.employee_id,
+       e.first_name,
+       e.last_name,
+       e.salary,
+       fn_bonus(e.salary) AS bonus,
+       d.department_name
+FROM employees e
+JOIN departments d
+ON e.department_id = d.department_id;
+```
+
+Expected result before executing the salary increase procedure:
+
+| employee_id | first_name | last_name | salary | bonus | department_name |
+|---:|---|---|---:|---:|---|
+| 1 | Ana | Torres | 1500 | 150 | Technology |
+| 2 | Luis | Perez | 1800 | 180 | Technology |
+| 3 | Marta | Gomez | 1300 | 130 | Finance |
+
+After executing:
+
+```sql
+BEGIN
+    pr_increase_salary(1, 15);
+END;
+/
+```
+
+Expected result for employee `1`:
+
+| employee_id | first_name | old_salary | new_salary |
+|---:|---|---:|---:|
+| 1 | Ana | 1500 | 1725 |
+
+The function calculates the bonus, the procedure updates the salary, and the trigger protects the table from invalid salary values.
+
 
 ---
 
