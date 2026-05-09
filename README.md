@@ -487,7 +487,7 @@ The recommended order for studying the topics in this repository is:
 
 | Topic | Status |
 |---|---|
-| [REST APIs](./backend/api-rest/README.md) | ⚪ Pending |
+| [REST APIs](./backend/api-rest/README.md) | 🟡 In Progress |
 | [FastAPI](./backend/fastapi/README.md) | ⚪ Pending |
 | [Spring Boot](./backend/springboot/README.md) | ⚪ Pending |
 | [Node.js and Express](./backend/node-express/README.md) | ⚪ Pending |
@@ -554,9 +554,9 @@ The recommended order for studying the topics in this repository is:
 | Topic | Status |
 |---|---|
 | [Agile](./methodologies/agile/README.md) | ⚪ Pending |
-| [Scrum](./methodologies/scrum/README.md) | ⚪ Pending |
+| [Scrum](./methodologies/scrum/README.md) | 🟡 In Progress |
 | [Kanban](./methodologies/kanban/README.md) | ⚪ Pending |
-| [Jira](./methodologies/jira/README.md) | ⚪ Pending |
+| [Jira](./methodologies/jira/README.md) | 🟡 In Progress |
 
 ### Languages
 
